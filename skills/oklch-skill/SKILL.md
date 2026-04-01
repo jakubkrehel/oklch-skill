@@ -194,17 +194,13 @@ This works because oklch's perceptual uniformity means equal L steps in both dir
 
 ## Accessibility & Contrast
 
-### WCAG 2 thresholds
+Contrast is always measured between a **foreground color** (text, icon, or UI element) and the **background color** it sits on. When checking contrast, identify the background the element will be rendered against — typically the nearest parent's background color.
 
-| Content Type | AA | AAA |
-| --- | --- | --- |
-| Normal text (<18px / <14px bold) | 4.5:1 | 7:1 |
-| Large text (>=18px / >=14px bold) | 3:1 | 4.5:1 |
-| UI components & graphical objects | 3:1 | — |
+### APCA thresholds (recommended)
 
-### APCA thresholds (WCAG 3 draft)
+APCA (Accessible Perceptual Contrast Algorithm) is more perceptually accurate than WCAG 2 and pairs naturally with oklch since both are grounded in perceptual lightness. Use APCA as the default.
 
-Conservative approximations using Lc (Lightness Contrast):
+Lc (Lightness Contrast) measures the perceived contrast between foreground and background. These are conservative approximations:
 
 | Content Type | Pass | Pass+ |
 | --- | --- | --- |
@@ -214,26 +210,36 @@ Conservative approximations using Lc (Lightness Contrast):
 
 APCA's Lc value is signed — positive means light text on dark background, negative means dark text on light. Use the absolute value for threshold comparison.
 
-### Why oklch makes contrast fixes easier
+### WCAG 2 thresholds (for legal compliance)
 
-In hex/rgb, fixing contrast means trial and error. In oklch, contrast is controlled by **lightness (L) alone**:
+WCAG 2 is still required when making formal WCAG 2.x conformance claims. It uses a luminance ratio that can be both too strict and too lenient depending on the color pair.
+
+| Content Type | AA | AAA |
+| --- | --- | --- |
+| Normal text (<18px / <14px bold) | 4.5:1 | 7:1 |
+| Large text (>=18px / >=14px bold) | 3:1 | 4.5:1 |
+| UI components & graphical objects | 3:1 | — |
+
+### Fixing contrast with oklch
+
+In hex/rgb, fixing contrast means trial and error across three channels. In oklch, contrast is controlled by **lightness (L) alone** — adjust the L distance between the foreground and its background:
 
 ```css
-/* Failing: text on background */
-color: oklch(0.65 0.2 250);
-background: oklch(0.75 0.05 250);
+/* Failing: text too close in lightness to its background */
+color: oklch(0.65 0.2 250);       /* foreground */
+background: oklch(0.75 0.05 250); /* background */
 
-/* Fix: increase L difference, keep C and H */
-color: oklch(0.35 0.2 250);
-background: oklch(0.75 0.05 250);
+/* Fix: darken the text, keep C and H unchanged */
+color: oklch(0.35 0.2 250);       /* foreground — more L distance */
+background: oklch(0.75 0.05 250); /* background — unchanged */
 ```
 
-The rule: move the text's L further from the background's L. Chroma has negligible effect on contrast ratios — adjust L instead.
+Chroma has negligible effect on contrast — always adjust L, never C.
 
 ### Quick lightness gap guide
 
-- **Light background (L > 0.85):** text L should be below 0.45
-- **Dark background (L < 0.25):** text L should be above 0.75
+- **Light background (L > 0.85):** foreground L should be below 0.45
+- **Dark background (L < 0.25):** foreground L should be above 0.75
 
 These are approximations — always verify with an actual contrast calculation.
 
@@ -388,7 +394,7 @@ Tailwind's opacity modifier syntax works with oklch:
 | --- | --- |
 | Hex/rgb/hsl color in new code | Convert to `oklch()` |
 | HSL palette ramp with hue drift | Rebuild with constant oklch hue |
-| Failing contrast ratio | Adjust oklch L channel, keep C and H |
+| Failing contrast (check foreground vs its background using APCA) | Adjust oklch L channel, keep C and H |
 | High chroma without gamut check | Clamp to max chroma for the L/H in sRGB |
 | Same absolute C across different hues | Use same C% (percentage of max) for consistent vividness |
 | P3 color without sRGB fallback | Add `@media (color-gamut: p3)` pattern |
