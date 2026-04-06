@@ -58,15 +58,15 @@ oklch(0.8 0.05 200 / 0.5)
 
 ## Review Output Format
 
-Always present review findings as a markdown table with **Before**, **After**, and **Why** columns — one row per issue. Never list findings as separate "Before:" / "After:" lines outside of a table.
+Always present color changes as a markdown table with **Before** and **After** columns. Include **every color that was changed** — not just a subset. Never list findings as separate "Before:" / "After:" lines outside of a table.
 
-| Before | After | Why |
-| --- | --- | --- |
-| `color: #3b82f6` | `color: oklch(0.623 0.188 259.815)` | Raw hex in new code — use oklch |
-| Same absolute C across hues | Same C% of each hue's max chroma | Equal absolute chroma looks uneven across hues |
-| No sRGB fallback for P3 color | `@media (color-gamut: p3)` wrapper | Wide-gamut colors need a fallback path |
+| Before | After |
+| --- | --- |
+| `color: #3b82f6` | `color: oklch(0.623 0.188 259.815)` |
+| Same absolute C across hues | Same C% of each hue's max chroma |
+| No sRGB fallback for P3 color | `@media (color-gamut: p3)` wrapper |
 
-This keeps feedback scannable and diff-friendly. Each row is a self-contained finding the developer can act on independently.
+This keeps feedback scannable and diff-friendly. Each row is a self-contained change the developer can act on independently.
 
 ## Common Mistakes
 
