@@ -2,18 +2,16 @@
   <img width="320" height="168" alt="oklch.fyi" src="https://zaevelstnancdrwi.public.blob.vercel-storage.com/oklch-og.png" />
 </a>
 
-# OKLCH Skill
-
 [![skills.sh](https://skills.sh/b/jakubkrehel/oklch-skill)](https://skills.sh/jakubkrehel/oklch-skill)
 
-An [Agent Skill](https://docs.anthropic.com/en/docs/claude-code/skills) for working with the OKLCH color space in web projects. Based on [oklch.fyi](https://oklch.fyi). It teaches AI coding assistants to convert colors, generate perceptually uniform palettes, check contrast and theme with Tailwind v4.
+An agent skill for working with the OKLCH color space. It can generate new palettes, check contrast, handle gamut boundaries and more.
+
+It is available for Claude Code, Codex, Cursor Agent and many more. After installation, run `/oklch-skill` to get started.
+
+You can pick from multiple actions including converting colors, generating palettes, checking contrast, gamut clamping, setting up fallbacks and more.
 
 ## Install
 
 ```bash
 npx skills add jakubkrehel/oklch-skill
 ```
-
-## License
-
-MIT
