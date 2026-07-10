@@ -1,3 +1,7 @@
+<a href="https://oklch.fyi/">
+  <img width="320" height="168" alt="oklch.fyi" src="https://zaevelstnancdrwi.public.blob.vercel-storage.com/oklch-og.png" />
+</a>
+
 # OKLCH Skill
 
 [![skills.sh](https://skills.sh/b/jakubkrehel/oklch-skill)](https://skills.sh/jakubkrehel/oklch-skill)
