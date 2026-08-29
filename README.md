@@ -4,11 +4,9 @@
 
 [![skills.sh](https://skills.sh/b/jakubkrehel/oklch-skill)](https://skills.sh/jakubkrehel/oklch-skill)
 
-An agent skill for working with the OKLCH color space.
+An agent skill that helps work with the OKLCH color space.
 
-It is available for Claude Code, Codex, Cursor Agent and many more. After installation, run `/oklch-skill` to get started.
-
-You can pick from multiple actions including converting colors, generating palettes, checking contrast, gamut clamping, setting up fallbacks and more.
+You can convert colors, generate palettes, check contrast, gamut clamp, set up fallbacks and more.
 
 ## Install
 
